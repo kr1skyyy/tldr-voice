@@ -12,7 +12,7 @@ Spoken TL;DR for Claude Code. After a long reply, Claude says a 2-3 sentence sum
 In Claude Code:
 
 ```
-/plugin marketplace add OWNER/claude-tldr-voice
+/plugin marketplace add kr1skyyy/tldr-voice
 /plugin install tldr-voice@tldr-voice
 ```
 
