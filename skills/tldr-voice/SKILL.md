@@ -21,7 +21,7 @@ Skip if the user said "mute", "quiet", "no voice", or `TLDR_MUTE=1` is set.
 
 ## First-time setup
 
-If speak.sh prints "Piper or voice ... not found", run `scripts/setup.sh`. It installs Piper with `uv` (or `pipx`) and downloads the default voice (~60 MB). Pass a voice name to get another voice: `scripts/setup.sh en_GB-alan-medium`.
+A SessionStart hook installs Piper and the voice in the background on first start (log: `~/.local/share/tldr-voice/setup.log`). If speak.sh still prints "Piper or voice ... not found", run `scripts/setup.sh`. It installs Piper with `uv`, `pipx`, or a private venv, and downloads the default voice (~60 MB). Pass a voice name to get another voice: `scripts/setup.sh en_GB-alan-medium`.
 
 ## Writing the spoken summary
 

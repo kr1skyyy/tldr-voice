@@ -17,7 +17,10 @@ text="$(printf '%s' "$text" | awk '{n = NF > 70 ? 70 : NF; for (i = 1; i <= n; i
 voice="${TLDR_VOICE:-en_US-hfc_female-medium}"
 voice_dir="${TLDR_VOICE_DIR:-$HOME/.local/share/piper-voices}"
 model="$voice_dir/$voice.onnx"
-piper_bin="$(command -v piper || echo "$HOME/.local/bin/piper")"
+piper_bin="$(command -v piper || true)"
+for p in "$HOME/.local/bin/piper" "${TLDR_DATA_DIR:-$HOME/.local/share/tldr-voice}/venv/bin/piper"; do
+  [[ -z "$piper_bin" && -x "$p" ]] && piper_bin="$p"
+done
 lock="${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}/tldr-voice-$(id -u).pid"
 
 # Working folder of a process (Linux /proc, macOS lsof)

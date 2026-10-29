@@ -16,21 +16,17 @@ In Claude Code:
 /plugin install tldr-voice@tldr-voice
 ```
 
-Then install Piper and the default voice (~60 MB). Needs [uv](https://docs.astral.sh/uv/) or pipx:
+That's it. On the next start, the plugin installs Piper and the default voice (~60 MB) in the background. You hear "Voice summaries are ready." when it is done. It uses `uv` or `pipx` if you have them, else a private Python venv in `~/.local/share/tldr-voice`. No sudo needed. Log: `~/.local/share/tldr-voice/setup.log`.
 
-```bash
-~/.claude/plugins/cache/tldr-voice/tldr-voice/*/scripts/setup.sh
-```
+To skip auto-install, set `TLDR_AUTO_SETUP=0` and run `scripts/setup.sh` yourself.
 
-Or just ask Claude: "set up tldr-voice".
-
-Restart Claude Code. Ask something with a long answer. You should hear the summary.
+Then ask something with a long answer. You should hear the summary.
 
 ## Requirements
 
 - Linux or macOS
 - Python 3 (for the hook)
-- `uv` or `pipx` (to install Piper)
+- Python 3 with `venv` (on Debian/Ubuntu: `sudo apt install python3-venv`), or `uv`/`pipx`
 - Audio player: `pw-play`, `paplay`, `aplay` (Linux) or `afplay` (macOS)
 
 Without Piper, it falls back to `say` (macOS) or `spd-say` (Linux).
@@ -47,15 +43,17 @@ Set these env vars in your shell profile:
 | `TLDR_SAY_PROJECT` | `auto` | `auto`, `always`, or `never` say the project name |
 | `TLDR_MIN_WORDS` | `150` | Reply words that trigger a summary |
 | `TLDR_MIN_LINES` | `15` | Reply lines that trigger a summary |
+| `TLDR_AUTO_SETUP` | `1` | `0` turns off auto-install of Piper |
 
 Other voices: browse [piper-voices](https://huggingface.co/rhasspy/piper-voices), then run `scripts/setup.sh <voice-name>` and set `TLDR_VOICE`.
 
 ## How it works
 
-1. `hooks/hooks.json` registers a **Stop hook** (`scripts/stop-hook.py`). It runs after every reply.
-2. If the reply is long, the hook asks Claude for one more step: write a short summary for listening.
-3. Claude runs `scripts/speak.sh "<summary>"`. Piper makes the audio, which plays in the background.
-4. Claude shows the same summary as a `🔊 TL;DR:` line.
+1. A **SessionStart hook** (`scripts/ensure-setup.sh`) installs Piper and the voice if missing.
+2. `hooks/hooks.json` registers a **Stop hook** (`scripts/stop-hook.py`). It runs after every reply.
+3. If the reply is long, the hook asks Claude for one more step: write a short summary for listening.
+4. Claude runs `scripts/speak.sh "<summary>"`. Piper makes the audio, which plays in the background.
+5. Claude shows the same summary as a `🔊 TL;DR:` line.
 
 The hook runs only once per reply, so it cannot loop.
 
