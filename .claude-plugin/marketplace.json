@@ -1,0 +1,13 @@
+{
+  "name": "tldr-voice",
+  "owner": {
+    "name": "tldr-voice contributors"
+  },
+  "plugins": [
+    {
+      "name": "tldr-voice",
+      "source": "./",
+      "description": "Spoken 2-3 sentence summaries of long Claude replies, using local Piper TTS."
+    }
+  ]
+}

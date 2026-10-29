@@ -1,0 +1,10 @@
+{
+  "name": "tldr-voice",
+  "version": "1.0.0",
+  "description": "After long replies, Claude speaks a 2-3 sentence summary out loud with local Piper TTS and shows it as a TL;DR line. Fully local, no API calls.",
+  "author": {
+    "name": "tldr-voice contributors"
+  },
+  "license": "MIT",
+  "keywords": ["tts", "voice", "summary", "tldr", "piper", "accessibility"]
+}
