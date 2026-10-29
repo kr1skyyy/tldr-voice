@@ -1,0 +1,14 @@
+{
+  "name": "tldr-voice",
+  "displayName": "TL;DR Voice",
+  "version": "1.1.0",
+  "description": "After long replies, Cursor speaks a 2-3 sentence summary out loud with local Piper TTS and shows it as a TL;DR line. Fully local, no API calls. Windows.",
+  "author": {
+    "name": "tldr-voice contributors"
+  },
+  "license": "MIT",
+  "keywords": ["tts", "voice", "summary", "tldr", "piper", "accessibility", "windows"],
+  "skills": "./skills/",
+  "hooks": "./hooks/cursor.json",
+  "commands": "./commands/"
+}

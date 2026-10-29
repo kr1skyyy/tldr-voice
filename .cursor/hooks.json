@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeSubmitPrompt": [
+      {
+        "command": "py -3 .\\scripts\\hook.py",
+        "timeout": 10
+      }
+    ],
+    "afterAgentResponse": [
+      {
+        "command": "py -3 .\\scripts\\hook.py",
+        "timeout": 10
+      }
+    ],
+    "stop": [
+      {
+        "command": "py -3 .\\scripts\\hook.py",
+        "timeout": 15,
+        "loop_limit": 1
+      }
+    ],
+    "sessionStart": [
+      {
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\ensure-setup.ps1",
+        "timeout": 15
+      }
+    ]
+  }
+}
